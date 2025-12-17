@@ -1,7 +1,7 @@
 # Python junk
 __pycache__/
 *.pyc
-venv/
+plot_env/
 .env
 
 # Datasets (Too big for git)
