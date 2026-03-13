@@ -1,3 +1,4 @@
+
 import csv
 import os
 import pandas as pd
@@ -99,7 +100,9 @@ optimizer = optim.Adam(model.parameters(), lr=LR)
 # -----------------------------
 # Training loop
 # -----------------------------
+
 metrics = []
+
 
 for epoch in range(1, EPOCHS + 1):
     model.train()
@@ -128,6 +131,7 @@ for epoch in range(1, EPOCHS + 1):
         f"Test Loss: {test_loss:.4f} | Test Acc: {test_acc:.2f}%"
     )
 
+
     metrics.append({
         "epoch": epoch,
         "train_loss": loss.item(),
@@ -138,8 +142,13 @@ for epoch in range(1, EPOCHS + 1):
 
 pd.DataFrame(metrics).to_csv("centralized_baseline_metrics.csv", index=False)
 print("Saved metrics: centralized_baseline_metrics.csv")
+
 # -----------------------------
 # Save final model
 # -----------------------------
 torch.save(model.state_dict(), "centralized_baseline_model.pt")
+
 print("Saved model: centralized_baseline_model.pt")
+
+print("Saved model: centralized_baseline_model.pt")
+

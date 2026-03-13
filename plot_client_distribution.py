@@ -15,4 +15,6 @@ plt.ylabel("Number of Samples")
 plt.xticks(rotation=0)
 plt.tight_layout()
 plt.savefig("client_distribution.png")
+
 print("Saved figure: client_distribution.png")
+

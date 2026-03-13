@@ -57,4 +57,6 @@ for i in range(3):
     print(f"Client {i} received {len(client_data[i])} samples")
     print(client_data[i]['slice_type'].value_counts())
 
+
 print("Data splitting complete.")
+
