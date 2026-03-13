@@ -1,0 +1,8 @@
+flwr
+torch
+torchvision
+numpy<2
+pandas
+scikit-learn
+matplotlib
+seaborn

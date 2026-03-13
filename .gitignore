@@ -1,0 +1,10 @@
+# Python junk
+__pycache__/
+*.pyc
+plot_env/
+.env
+
+# Datasets (Too big for git)
+*.csv
+*.h5
+data/
