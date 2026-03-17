@@ -14,19 +14,22 @@ The system is built using:
 
 * PyTorch for model training
 
-This repository currently covers the first planned activity of the project:
+This repository currently covers the first planned activity and key components of the second planned activity:
 
 * Federated learning environment setup
-
 * Non-IID client data partitioning
-
 * Centralized baseline model validation
+* Heterogeneous model definition (small, medium, large)
+* FLAME-style model expansion with validated weight mapping
 
 # Project Structure
 ``` Plain text
 ├── client.py                    # Flower client (local training)
 ├── server.py                    # Flower server (FedAvg aggregation)
 ├── cnn_model.py                 # CNN architecture
+├── cnn_heterogeneous_model.py   # Scalable CNN architectures (small/medium/large)
+├── model_expansion.py           # FLAME-style weight expansion
+├── test_model_expansion.py      # Unit tests for expansion correctness
 ├── splitter.py                  # Data partitioning (non-IID)
 ├── centralized_baseline.py      # Centralized training script
 ├── plot_centralized_results.py  # Accuracy/loss curves
@@ -41,6 +44,7 @@ This repository currently covers the first planned activity of the project:
 ├── centralized_training_curves.png
 ├── centralized_confusion_matrix.png
 └── requirements.txt
+
 ```
 # Environment Setup
 
@@ -100,7 +104,45 @@ This trains the CNN using the combined client datasets and evaluates on the serv
    **Results**
 * Final test accuracy: ~85%
 * Stable convergence observed across epochs
+
+# Heterogeneous Model Expansion 
+To support heterogeneous federated learning, we extend the baseline architecture by defining scalable CNN variants and implementing a FLAME-style expansion mechanism.
+
+ **Model Variants**
+
+Three model sizes are defined:
+  * Small model → reduced convolutional filters and dense layer size
+  * Medium model → intermediate capacity
+  * Large model → full-capacity reference architecture
+
+These models simulate clients with varying computational capabilities.
+
+**FLAME-Style Expansion**
+
+To enable aggregation across heterogeneous models, a weight expansion mechanism is implemented. This maps smaller model parameters into the large model space by:
+* copying overlapping tensor regions
+* zero-padding additional capacity
+* preserving learned feature representations
+
+This ensures all client updates can be aligned in a common parameter space prior to aggregation.
+
+**Unit Test Validation (Risk Mitigation)**
+
+To verify correct weight mapping, unit tests were implemented for:
+
+* Small → Large expansion
+* Medium → Large expansion
   
+**Test Output:**
+  
+  ``` Plain text
+  Small-to-large expansion test passed.
+Medium-to-large expansion test passed.
+All expansion unit tests passed.
+```
+ These results confirm that the expansion mechanism preserves parameter alignment and structural consistency across model scales.
+
+
 # Evaluation and Visualization
 
  **Learning Curves**
